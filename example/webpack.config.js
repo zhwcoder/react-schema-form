@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
+//var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
   context: __dirname,
@@ -25,11 +25,12 @@ module.exports = {
           // I highly recommend using the babel-loader as it gives you
           // ES6/7 syntax and JSX transpiling out of the box
           {
-              test: /\.js$/,
-              loader: 'babel',
-              exclude: [nodeModulesPath]
+              test: /\.(js|jsx)$/,
+              loaders: ['babel-loader?optional=runtime&stage=0'],
+              exclude: /node_modules/
           },
           {test: /\.less$/, loader: "style!css!less"},
+          {test: /\.css?$/, loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]'},
           {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
       ]
   }
